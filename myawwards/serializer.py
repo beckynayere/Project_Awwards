@@ -4,10 +4,15 @@ from django.contrib.auth.models import User
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    # profile = ProfileSerializer()
     class Meta:
         model = Profile
         fields = ['name', 'profile_picture', 'bio', 'location', 'contact']
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'url', 'description', 'technologies', 'photo', 'date', 'user']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,9 +22,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'url', 'username', 'profile', 'posts']
-
-
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = ['id', 'title', 'url', 'description', 'technologies', 'photo', 'date', 'user']
