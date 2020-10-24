@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'myawwards',
     'bootstrap4',
+    'crispy_forms',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
