@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from .models import Profile, Post, Rating
 from .serializer import ProfileSerializer, UserSerializer, PostSerializer
 from rest_framework.views import APIView
+from .forms import SignupForm, PostForm, UpdateUserForm, UpdateUserProfileForm, RatingsForm
+import random
 
 # Create your views here.
 def index(request):
@@ -20,7 +22,8 @@ def index(request):
     try:
         posts = Post.objects.all()
         posts = posts[::-1]
-        a_post = random.randint(0, len(posts)-1)
+        # a_post = random.randint(0, len(posts)-1)
+        a_post = random.randint(0, abs(len(posts)-1)), user
         random_post = posts[a_post]
         print(random_post.photo)
     except Post.DoesNotExist:
