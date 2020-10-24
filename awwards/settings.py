@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 UPLOADCARE = {
     'pub_key': '2b709bca64245dd9e55e',
-    'secret': '0a60851de5f3db2dc728',
+    'secret': '+&6l&(a+aq2590*eyawp@coikd@ju43_ta4&td5fy#@t^z6e3a',
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
