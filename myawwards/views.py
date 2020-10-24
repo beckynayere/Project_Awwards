@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .models import Profile
+from .serializers import ProfileSerializer, UserSerializer, PostSerializer
 
 # Create your views here.
 def index(request):

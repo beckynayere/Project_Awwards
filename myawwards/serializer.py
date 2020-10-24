@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
     class Meta:
         model = Profile
         fields = ['name', 'profile_picture', 'bio', 'location', 'contact']
