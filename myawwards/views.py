@@ -2,7 +2,7 @@ from django.http  import HttpResponse, Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .models import Profile, Post
+from .models import Profile, Post, Rating
 from .serializer import ProfileSerializer, UserSerializer, PostSerializer
 from rest_framework.views import APIView
 

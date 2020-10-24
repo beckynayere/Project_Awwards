@@ -7,9 +7,12 @@ import datetime as dt
 
 # Create your models here.
 
+
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_picture = models.ImageField(upload_to='images/', default='default.png')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile')
+    profile_picture = models.ImageField(
+        upload_to='images/', default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     name = models.CharField(blank=True, max_length=120)
     location = models.CharField(max_length=60, blank=True)
@@ -28,16 +31,15 @@ class Profile(models.Model):
         instance.profile.save()
 
 
-
-
 class Post(models.Model):
-    
+
     title = models.CharField(max_length=155)
     url = models.URLField(max_length=255)
     description = models.TextField(max_length=255)
     technologies = models.CharField(max_length=200, blank=True)
     photo = ImageField(manual_crop='1280x720')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="posts")
     date = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
@@ -56,3 +58,41 @@ class Post(models.Model):
 
     def save_post(self):
         self.save()
+
+
+class Rating(models.Model):
+    rating = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
+    )
+
+    design = models.IntegerField(choices=rating, default=0, blank=True)
+    usability = models.IntegerField(choices=rating, blank=True)
+    content = models.IntegerField(choices=rating, blank=True)
+    score = models.FloatField(default=0, blank=True)
+    design_average = models.FloatField(default=0, blank=True)
+    usability_average = models.FloatField(default=0, blank=True)
+    content_average = models.FloatField(default=0, blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, related_name='rater')
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='ratings', null=True)
+
+    def save_rating(self):
+        self.save()
+
+    @classmethod
+    def get_ratings(cls, id):
+        ratings = Rating.objects.filter(post_id=id).all()
+        return ratings
+
+    def __str__(self):
+        return f'{self.post} Rating'
