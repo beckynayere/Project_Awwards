@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pyuploadcare.dj',
+    'tinymce',
 ]
 
 UPLOADCARE = {
