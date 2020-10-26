@@ -22,8 +22,8 @@ def index(request):
     try:
         posts = Post.objects.all()
         posts = posts[::-1]
-        # a_post = random.randint(0, len(posts)-1)
-        a_post = random.randint(0, abs(len(posts)-1)), user
+        a_post = random.randint(0, len(posts)-1)
+        # a_post = random.randint(0, abs(len(posts)-1)), user
         random_post = posts[a_post]
         print(random_post.photo)
     except Post.DoesNotExist:
