@@ -7,7 +7,7 @@ from .models import Profile, Post, Rating
 from .serializer import ProfileSerializer, UserSerializer, PostSerializer
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
-from .forms import SignupForm, PostForm, UpdateUserForm, UpdateUserProfileForm,
+from .forms import SignupForm, PostForm, UpdateUserForm, UpdateUserProfileForm
 from .forms import RatingsForm
 import random
 
