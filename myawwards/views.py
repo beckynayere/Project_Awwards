@@ -10,6 +10,8 @@ from rest_framework.views import APIView
 from .forms import SignupForm,PostForm,UpdateUserForm,UpdateUserProfileForm,RatingsForm
 import random
 import datetime as dt
+from .permissions import IsAdminOrReadOnly
+from rest_framework import status
 
 # Create your views here.
 def home(request):
