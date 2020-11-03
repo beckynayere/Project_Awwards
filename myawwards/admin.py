@@ -5,6 +5,7 @@ from . import models
 admin.site.register(models.Profile)
 admin.site.register(models.Post)
 admin.site.register(models.Rating)
+admin.site.register(models.Project)
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm

@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .models import Profile, Post, Rating
+from .models import Profile, Post, Rating, Project
 from .serializer import ProfileSerializer, UserSerializer, PostSerializer, ProjectSerializer
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
