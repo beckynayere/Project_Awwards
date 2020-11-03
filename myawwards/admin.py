@@ -4,13 +4,13 @@ from . import models
 # Register your models here.
 admin.site.register(models.Profile)
 admin.site.register(models.Post)
-admin.site.register(models.Rating)
+admin.site.register(models.Rate)
 admin.site.register(models.Project)
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post, Profile, Rating
+from .models import Post, Profile, Rate,Project
 from pyuploadcare.dj.forms import ImageField
 
 
@@ -44,7 +44,7 @@ class UpdateUserProfileForm(forms.ModelForm):
         fields = ['name', 'location', 'profile_picture', 'bio', 'contact']
 
 
-class RatingsForm(forms.ModelForm):
+class RateForm(forms.ModelForm):
     class Meta:
-        model = Rating
+        model = Rate
         fields = ['design', 'usability', 'content']

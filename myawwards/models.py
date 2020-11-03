@@ -68,7 +68,7 @@ class Post(models.Model):
         self.save()
 
 
-class Rating(models.Model):
+class Rate(models.Model):
     rating = (
         (1, '1'),
         (2, '2'),
@@ -82,9 +82,9 @@ class Rating(models.Model):
         (10, '10'),
     )
 
-    design = models.IntegerField(choices=rating, default=0, blank=True)
-    usability = models.IntegerField(choices=rating, blank=True)
-    content = models.IntegerField(choices=rating, blank=True)
+    design = models.IntegerField(choices=rate, default=0, blank=True)
+    usability = models.IntegerField(choices=Rate, blank=True)
+    content = models.IntegerField(choices=rate, blank=True)
     score = models.FloatField(default=0, blank=True)
     design_average = models.FloatField(default=0, blank=True)
     usability_average = models.FloatField(default=0, blank=True)
@@ -92,18 +92,26 @@ class Rating(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name='rater')
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='ratings', null=True)
+        Post, on_delete=models.CASCADE, related_name='rate', null=True)
 
-    def save_rating(self):
+
+    def __str__(self):
+        return self.design
+
+
+    class Meta:
+        ordering = ['-id']
+
+    def save_rate(self):
         self.save()
 
     @classmethod
-    def get_ratings(cls, id):
-        ratings = Rating.objects.filter(post_id=id).all()
-        return ratings
+    def get_rate(cls, id):
+        rate = Rate.objects.filter(post_id=id).all()
+        return rate
 
     def __str__(self):
-        return f'{self.post} Rating'
+        return f'{self.post} Rate'
 
 class Project(models.Model):
 

@@ -3,11 +3,11 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .models import Profile, Post, Rating, Project
+from .models import Profile, Post, Rate, Project
 from .serializer import ProfileSerializer, UserSerializer, PostSerializer, ProjectSerializer
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
-from .forms import SignupForm,PostForm,UpdateUserForm,UpdateUserProfileForm,RatingsForm
+from .forms import SignupForm,PostForm,UpdateUserForm,UpdateUserProfileForm,RateForm
 import random
 import datetime as dt
 from .permissions import IsAdminOrReadOnly
@@ -54,7 +54,7 @@ class ProjectViewSet(viewsets. ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -141,11 +141,11 @@ def project(request, post):
             rate.save()
             return HttpResponseRedirect(request.path_info)
     else:
-        form = RatingsForm()
+        form = RateForm()
     params = {
         'post': post,
-        'rating_form': form,
-        'rating_status': rating_status
+        'rate_form': form,
+        'rate_status': rate_status
 
     }
     return render(request, 'project.html', params)
