@@ -43,4 +43,5 @@ class UpdateUserProfileForm(forms.ModelForm):
 class RateForm(forms.ModelForm):
     class Meta:
         model = Rate
-        fields = ['design', 'usability', 'content']
+        fields = ['design', 'usability', 'user']
+        # exclude = ['user', 'project']
