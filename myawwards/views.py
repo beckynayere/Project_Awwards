@@ -9,9 +9,10 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from .forms import SignupForm,PostForm,UpdateUserForm,UpdateUserProfileForm,RatingsForm
 import random
+import datetime as dt
 
 # Create your views here.
-def index(request):
+def home(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -30,7 +31,7 @@ def index(request):
         print(random_post.photo)
     except Post.DoesNotExist:
         posts = None
-    return render(request, 'index.html', {'posts': posts, 'form': form, 'random_post': random_post})
+    return render(request, 'home.html', {'posts': posts, 'form': form, 'random_post': random_post})
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
@@ -57,7 +58,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('index')
+            return redirect('home')
     else:
         form = SignupForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -142,6 +143,24 @@ def project(request, post):
 
     }
     return render(request, 'project.html', params)
+
+@login_required(login_url='/accounts/login')
+def upload_project(request):
+    if request.method == 'POST':
+        uploadform = ProjectForm(request.POST, request.FILES)
+        if uploadform.is_valid():
+            upload = uploadform.save(commit=False)
+            upload.profile = request.user.profile
+            upload.save()
+            return redirect('home_page')
+    else:
+        uploadform = ProjectForm()
+    return render(request, 'update-project.html', locals())
+
+
+def view_project(request):
+    project = Project.objects.get_all()
+    return render(request, 'home.html', locals())
 
 
 def search_project(request):
