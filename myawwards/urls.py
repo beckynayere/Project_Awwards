@@ -3,15 +3,15 @@ from . import views
 from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
-
+# from django.contrib.auth import views
+# from django.contrib.auth.views import LoginView
 
 
 router = routers.DefaultRouter()
-router.register('users', views.UserViewSet)
-router.register('posts', views.PostViewSet)
 router.register('profile', views.ProfileViewSet)
-router.register('project', views.ProjectViewset)
-
+router.register('posts', views.PostViewSet)
+router.register('project', views.ProjectViewSet)
+router.register('users', views.UserViewSet)
 
 urlpatterns = [
     path('', views.home, name='home'),

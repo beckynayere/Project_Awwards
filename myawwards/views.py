@@ -50,7 +50,11 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+class ProjectViewSet(viewsets. ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
 
+    
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -198,7 +202,7 @@ def rate_project(request, project_id):
     project=Project.objects.get(pk=project_id)
     profile=User.objects.get(username=request.user)
     if request.method == 'POST':
-        rateform=RateForm(request.POST, request.FILES)
+        rateform=RatingsForm(request.POST, request.FILES)
         print(rateform.errors)
         if rateform.is_valid():
             rating=rateform.save(commit=False)
@@ -207,7 +211,7 @@ def rate_project(request, project_id):
             rating.save()
             return redirect('vote', project_id)
     else:
-        rateform=RateForm()
+        rateform=RatingsForm()
     return render(request, 'rate.html', locals())
 
 
@@ -247,7 +251,7 @@ def vote(request, project_id):
         project=Project.objects.get(pk=project_id)
         rate=Rate.objects.filter(project_id=project_id).all()
         print([r.project_id for r in rate])
-        rateform=RateForm()
+        rateform=RatingsForm()
     except DoesNotExist:
         raise Http404()
     return render(request, "project.html", locals())
