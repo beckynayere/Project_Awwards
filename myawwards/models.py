@@ -21,6 +21,9 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    def save_profile(self):
+        self.save()
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -29,6 +32,11 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+
+    @classmethod
+    def search_user(cls, name):
+        userprof = Profile.objects.filter(user__username__icontains=name)
+        return userprof
 
 
 class Post(models.Model):
@@ -98,6 +106,7 @@ class Rating(models.Model):
         return f'{self.post} Rating'
 
 class Project(models.Model):
+
     screenshot = models.ImageField(upload_to='images/')
     project_name = models.CharField(max_length=10)
     project_url = models.CharField(max_length=50)
