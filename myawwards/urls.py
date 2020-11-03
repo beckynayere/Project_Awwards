@@ -10,6 +10,7 @@ router = routers.DefaultRouter()
 router.register('users', views.UserViewSet)
 router.register('posts', views.PostViewSet)
 router.register('profile', views.ProfileViewSet)
+router.register('project', views.ProjectViewset)
 
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
     path('account/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('<username>/profile', views.user_profile, name='userprofile'),
     path('profile/<username>/', views.profile, name='profile'),
     path('profile/<username>/settings', views.edit_profile, name='edit'),
     path('upload/', views.upload_project, name='upload_project'),
