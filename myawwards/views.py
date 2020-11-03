@@ -177,3 +177,64 @@ def search_project(request):
     else:
         message = "You haven't searched for any image category"
     return render(request, 'results.html', {'message': message})
+
+def rate(request):
+    profile=User.objects.get(username=request.user)
+    return render(request, 'rate.html', locals())
+
+
+def view_rate(request, project_id):
+    user=User.objects.get(username=request.user)
+    project=Project.objects.get(pk=project_id)
+    rate=Rate.objects.filter(project_id=project_id)
+    print(rate)
+    return render(request, 'project.html', locals())
+
+
+@login_required(login_url='/accounts/login')
+def rate_project(request, project_id):
+    project=Project.objects.get(pk=project_id)
+    profile=User.objects.get(username=request.user)
+    if request.method == 'POST':
+        rateform=RateForm(request.POST, request.FILES)
+        print(rateform.errors)
+        if rateform.is_valid():
+            rating=rateform.save(commit=False)
+            rating.project=project
+            rating.user=request.user
+            rating.save()
+            return redirect('vote', project_id)
+    else:
+        rateform=RateForm()
+    return render(request, 'rate.html', locals())
+
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_profile=Profile.objects.all()
+        serializers=ProfileSerializer(all_profile, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers=ProfileSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    permission_classes=(IsAdminOrReadOnly,)
+
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_project=Project.objects.all()
+        serializers=ProjectSerializer(all_project, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers=ProjectSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    permission_classes=(IsAdminOrReadOnly,)
