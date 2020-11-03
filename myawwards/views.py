@@ -78,7 +78,7 @@ def user_profile(request, username):
     params = {
         'user_prof': user_prof,
     }
-    return render(request, 'userprofile.html', params)
+    return render(request, 'user_profile.html', params)
 
 
 @login_required(login_url='login')
