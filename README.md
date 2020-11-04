@@ -10,10 +10,6 @@ This project allows users to post their projects and repos for other users to ra
 ## Screenshots 
 ###### Home page
  
-<img src="static/images/Screen Shot 2020-10-26 at 15.30.32.png">
- 
-
-
  
 ## User Story  
   
